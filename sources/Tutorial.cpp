@@ -1,8 +1,5 @@
 #include <utility>
-
-#include <utility>
-
-#include <utility>
+#include <sstream>
 
 //
 // Created by Horatiu on 20-Mar-19.
@@ -11,7 +8,9 @@
 #include "../headers/Tutorial.h"
 
 Tutorial::Tutorial(string title, string presenter, Duration duration, int likes, string link)
-: title(std::move(title)), presenter(std::move(presenter)), duration(duration), likes(likes), link(std::move(link)){}
+        : title(std::move(title)), presenter(std::move(presenter)), duration(duration), likes(likes),
+          link(std::move(link))
+{}
 
 void Tutorial::like()
 {
@@ -46,4 +45,16 @@ const string &Tutorial::getLink() const
 bool Tutorial::operator==(const Tutorial &tutorial)
 {
     return title == tutorial.title;
+}
+
+string Tutorial::toString()
+{
+    std::ostringstream stringStream;
+    stringStream << title << " "
+                 << presenter << " "
+                 << duration.minutes << ":"
+                 << duration.seconds << " "
+                 << likes << " "
+                 << link;
+    return stringStream.str();
 }

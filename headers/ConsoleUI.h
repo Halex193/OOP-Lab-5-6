@@ -16,6 +16,11 @@ public:
     explicit ConsoleUI(Controller &controller);
 
     void run();
+
+    string readString();
+
+    int readInt();
+
 };
 
 

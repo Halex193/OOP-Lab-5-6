@@ -11,4 +11,12 @@ class TutorialDoesNotExistException : std::exception
 {
 };
 
+class DuplicateTutorial : std::exception
+{
+};
+
+class InvalidInput : std::exception
+{
+};
+
 #endif

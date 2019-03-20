@@ -11,16 +11,20 @@
 class Repository
 {
 private:
-    DynamicVector<Tutorial*> tutorials;
+    DynamicVector<Tutorial *> tutorials;
+
+    int search(Tutorial *tutorial);
 
 public:
-    const DynamicVector<Tutorial*> &getTutorials() const;
+    const DynamicVector<Tutorial *> &getTutorials() const;
 
-    void add(Tutorial* tutorial);
+    void add(Tutorial *tutorial);
 
-    void update(Tutorial* tutorial);
+    void update(Tutorial *tutorial);
 
-    void remove(Tutorial* tutorial);
+    void remove(Tutorial *tutorial);
+
+    ~Repository();
 };
 
 

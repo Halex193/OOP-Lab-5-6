@@ -20,14 +20,14 @@ private:
 
     void shrink();
 
-    void validateIndex(int index);
+    void validateIndex(int index) const;
 
 public:
     DynamicVector();
 
     void add(TElem element);
 
-    TElem get(int index);
+    TElem get(int index) const;
 
     void set(TElem element, int index);
 
@@ -35,7 +35,7 @@ public:
 
     void removeElement(TElem element);
 
-    int length();
+    int length() const;
 
     ~DynamicVector();
 };
@@ -62,7 +62,7 @@ void DynamicVector<TElem>::add(TElem element)
 }
 
 template<class TElem>
-TElem DynamicVector<TElem>::get(int index)
+TElem DynamicVector<TElem>::get(int index) const
 {
     validateIndex(index);
     return elements[index];
@@ -84,6 +84,7 @@ void DynamicVector<TElem>::remove(int index)
         elements[i] = elements[i + 1];
     }
     size--;
+    shrink();
 }
 
 template<class TElem>
@@ -100,7 +101,7 @@ void DynamicVector<TElem>::removeElement(TElem element)
 }
 
 template<class TElem>
-int DynamicVector<TElem>::length()
+int DynamicVector<TElem>::length() const
 {
     return size;
 }
@@ -138,7 +139,7 @@ void DynamicVector<TElem>::shrink()
 }
 
 template<class TElem>
-void DynamicVector<TElem>::validateIndex(int index)
+void DynamicVector<TElem>::validateIndex(int index) const
 {
     if (index < 0 || index >= size)
     {

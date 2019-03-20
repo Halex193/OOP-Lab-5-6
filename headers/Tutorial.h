@@ -39,6 +39,8 @@ public:
     const string &getLink() const;
 
     bool operator ==(const Tutorial &tutorial);
+
+    string toString();
 };
 
 
