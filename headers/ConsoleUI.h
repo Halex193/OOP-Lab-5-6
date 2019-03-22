@@ -21,6 +21,8 @@ public:
 
     int readInt();
 
+    void cinClear();
+
 };
 
 

@@ -24,8 +24,11 @@ private:
     int likes;
     string link;
 public:
-    Tutorial(string title, string presenter, Duration duration, int likes, string link);
+    Tutorial(string& title, string& presenter, Duration duration, int likes, string& link);
 
+    /**
+     * Increases the number of likes by one
+     */
     void like();
 
     const string &getTitle() const;

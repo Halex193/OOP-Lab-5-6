@@ -16,13 +16,13 @@ private:
 public:
     explicit Controller(Repository &repository);
 
-    void add(string title, string presenter, Duration duration, int likes, string link);
+    void add(string &title, string &presenter, Duration duration, int likes, string &link);
 
-    void update(string title, string presenter, Duration duration, int likes, string link);
+    void update(string &title, string &presenter, Duration duration, int likes, string &link);
 
-    void remove(string title);
+    void remove(string &title);
 
-    const DynamicVector<Tutorial *> &list();
+    const DynamicVector<Tutorial *> &list() const;
 
 };
 

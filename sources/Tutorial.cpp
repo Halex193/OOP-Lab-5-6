@@ -7,9 +7,9 @@
 
 #include "../headers/Tutorial.h"
 
-Tutorial::Tutorial(string title, string presenter, Duration duration, int likes, string link)
-        : title(std::move(title)), presenter(std::move(presenter)), duration(duration), likes(likes),
-          link(std::move(link))
+Tutorial::Tutorial(string& title, string& presenter, Duration duration, int likes, string& link)
+        : title(title), presenter(presenter), duration(duration), likes(likes),
+          link(link)
 {}
 
 void Tutorial::like()

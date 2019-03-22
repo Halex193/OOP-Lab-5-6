@@ -13,9 +13,9 @@ void testDynamicVector()
     vector.add(4);
     vector.add(5);
     assert(vector.length() == 5);
-    vector.removeElement(5);
-    vector.removeElement(4);
-    vector.removeElement(3);
+    vector.remove(2);
+    vector.remove(2);
+    vector.remove(2);
     assert(vector.length() == 2);
     vector.remove(0);
     assert(vector.length() == 1);

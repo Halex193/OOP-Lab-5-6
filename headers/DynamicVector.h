@@ -12,40 +12,70 @@ template<class TElem>
 class DynamicVector
 {
 private:
-    int size;
-    int capacity;
+    int size{};
+    int capacity{};
     TElem *elements;
 
+    /**
+     * Extends the dynamic vector if needed
+     */
     void extend();
 
+    /**
+     * Shrinks the dynamic vector if needed
+     */
     void shrink();
 
+    /**
+     * Validates an index within the vector
+     */
     void validateIndex(int index) const;
 
 public:
-    DynamicVector();
+    /**
+     * Creates a vector with the given capacity
+     * @param capacity Defaults to DEFAULT_CAPACITY
+     */
+    explicit DynamicVector(int capacity = DEFAULT_CAPACITY);
 
+    DynamicVector(const DynamicVector<TElem> &dynamicVector);
+
+    DynamicVector<TElem>& operator=(const DynamicVector<TElem> &dynamicVector);
+
+    /**
+     * Adds an element at the end of the dynamic vector
+     */
     void add(TElem element);
 
+    /**
+     * Retrieves the element stored at the specified position
+     */
     TElem get(int index) const;
 
+    /**
+     * Sets the element at the specified index
+     */
     void set(TElem element, int index);
 
+    /**
+     * Removes the element stored at the specified index
+     */
     void remove(int index);
 
-    void removeElement(TElem element);
-
+    /**
+     * Gets the number of elements stored in the vector
+     */
     int length() const;
 
     ~DynamicVector();
 };
 
 template<class TElem>
-DynamicVector<TElem>::DynamicVector()
+DynamicVector<TElem>::DynamicVector(int capacity)
 {
-    size = 0;
-    capacity = DEFAULT_CAPACITY;
-    elements = new TElem[capacity];
+    this->size = 0;
+    this->capacity = capacity;
+    this->elements = new TElem[capacity];
 }
 
 template<class TElem>
@@ -85,19 +115,6 @@ void DynamicVector<TElem>::remove(int index)
     }
     size--;
     shrink();
-}
-
-template<class TElem>
-void DynamicVector<TElem>::removeElement(TElem element)
-{
-    for (int i = 0; i < size; i++)
-    {
-        if (elements[i] == element)
-        {
-            remove(i);
-            return;
-        }
-    }
 }
 
 template<class TElem>
@@ -145,6 +162,39 @@ void DynamicVector<TElem>::validateIndex(int index) const
     {
         throw IndexInvalidException();
     }
+}
+
+template<class TElem>
+DynamicVector<TElem>::DynamicVector(const DynamicVector<TElem> &dynamicVector)
+{
+    this->size = dynamicVector.size;
+    this->capacity = dynamicVector.capacity;
+    this->elements = new TElem[capacity];
+
+    for (int i = 0; i < size; i++)
+    {
+        elements[i] = dynamicVector.elements[i];
+    }
+}
+
+template<class TElem>
+DynamicVector<TElem>& DynamicVector<TElem>::operator=(const DynamicVector<TElem> &dynamicVector)
+{
+    if (this == &dynamicVector)
+    {
+        return *this;
+    }
+
+    delete[] elements;
+    this->size = dynamicVector.size;
+    this->capacity = dynamicVector.capacity;
+    this->elements = new TElem[capacity];
+
+    for (int i = 0; i < size; i++)
+    {
+        elements[i] = dynamicVector.elements[i];
+    }
+    return *this;
 }
 
 

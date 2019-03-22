@@ -92,6 +92,7 @@ void ConsoleUI::run()
         {
             cout << "Input invalid!" << endl;
         }
+        cinClear();
     }
 }
 
@@ -111,9 +112,14 @@ int ConsoleUI::readInt()
     int readInt;
     if (!(cin >> readInt))
     {
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cinClear();
         throw InvalidInput();
     }
     return readInt;
+}
+
+void ConsoleUI::cinClear()
+{
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }

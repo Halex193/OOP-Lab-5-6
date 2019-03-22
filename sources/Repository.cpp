@@ -52,7 +52,7 @@ Repository::~Repository()
     }
 }
 
-int Repository::search(Tutorial *tutorial)
+int Repository::search(Tutorial *tutorial) const
 {
     for (int i = 0; i < tutorials.length(); i++)
     {
