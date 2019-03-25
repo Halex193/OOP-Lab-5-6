@@ -32,8 +32,18 @@ public:
      */
     void add(Tutorial *tutorial);
 
+    /**
+     * Updates a tutorial stored in the repository
+     * Throws TutorialDoesNotExistException if the tutorial is not stored in the repository
+     * @param tutorial
+     */
     void update(Tutorial *tutorial);
 
+    /**
+     * Removes a tutorial stored in the repository
+     * Throws TutorialDoesNotExistException if the tutorial is not stored in the repository
+     * @param tutorial
+     */
     void remove(Tutorial *tutorial);
 
     ~Repository();

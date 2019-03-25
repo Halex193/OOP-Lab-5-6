@@ -1,6 +1,7 @@
 #include <iostream>
 #include <assert.h>
 #include "../headers/DynamicVector.h"
+#include "../headers/Repository.h"
 
 using namespace std;
 
@@ -25,8 +26,16 @@ void testDynamicVector()
     cout << "DynamicVector test passed\n";
 }
 
+void testRepository()
+{
+    Repository repository;
+    repository.add(new Tutorial("1", "2", Duration{3, 4}, 5, "6"));
+    //TODO add remaining tests
+}
+
 int main()
 {
     testDynamicVector();
+    testRepository();
     cout << "All tests passed\n";
 }
