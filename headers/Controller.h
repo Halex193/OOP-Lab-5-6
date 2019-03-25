@@ -16,14 +16,29 @@ private:
 public:
     explicit Controller(Repository &repository);
 
-    void add(string &title, string &presenter, Duration duration, int likes, string &link);
+    /**
+     * Adds a tutorial to the repository
+     */
+    void add(const string &title, const string &presenter, Duration duration, int likes, const string &link);
 
-    void update(string &title, string &presenter, Duration duration, int likes, string &link);
+    /**
+     * Update a tutorial from the repository
+     */
+    void update(const string &title, const string &presenter, Duration duration, int likes, const string &link);
 
-    void remove(string &title);
+    /**
+     * Removes a tutorial from the database
+     */
+    void remove(const string &title);
 
+    /**
+     * Returns the list of all stored tutorials
+     */
     const DynamicVector<Tutorial *> &list() const;
 
+    /**
+     * Populates the repository with initial data
+     */
     void populateRepository();
 };
 

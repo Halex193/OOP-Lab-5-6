@@ -2,6 +2,7 @@
 #include <assert.h>
 #include "../headers/DynamicVector.h"
 #include "../headers/Repository.h"
+#include "../headers/Controller.h"
 
 using namespace std;
 
@@ -28,14 +29,107 @@ void testDynamicVector()
 
 void testRepository()
 {
-    Repository repository;
-    repository.add(new Tutorial("1", "2", Duration{3, 4}, 5, "6"));
-    //TODO add remaining tests
+    Repository repository{};
+    repository.add(new Tutorial(
+            "Learn Java 8 - Full Tutorial for Beginners",
+            "Marcus Biel",
+            Duration{572, 31},
+            0,
+            "https://www.youtube.com/watch?v=grEKMHGYyns"
+    ));
+
+    repository.add(new Tutorial(
+            "Java Programming Tutorial - 17 - Constructors",
+            "thenewboston",
+            Duration{5, 45},
+            0,
+            "https://www.youtube.com/watch?v=tPFuVRbUTwA"
+    ));
+
+    repository.add(new Tutorial(
+            "Java Programming",
+            "Derek Banas",
+            Duration{34, 29},
+            0,
+            "https://www.youtube.com/watch?v=WPvGqX-TXP0"
+    ));
+    assert(repository.getTutorials().length() == 3);
+    repository.remove(new Tutorial(
+            "Java Programming Tutorial - 17 - Constructors",
+            "thenewboston",
+            Duration{5, 45},
+            0,
+            "https://www.youtube.com/watch?v=tPFuVRbUTwA"
+    ));
+    repository.remove(new Tutorial(
+            "Java Programming",
+            "Derek Banas",
+            Duration{34, 29},
+            0,
+            "https://www.youtube.com/watch?v=WPvGqX-TXP0"
+    ));
+    assert(repository.getTutorials().length() == 1);
+    repository.update(new Tutorial(
+            "Learn Java 8 - Full Tutorial for Beginners",
+            "Marcus",
+            Duration{0, 0},
+            12,
+            "https://www.youtube.com"
+    ));
+    assert(repository.getTutorials().length() == 1);
+    assert(repository.getTutorials().get(0)->getTitle() == "Learn Java 8 - Full Tutorial for Beginners");
+    assert(repository.getTutorials().get(0)->getLikes() == 12);
+    cout << "Repository test passed\n";
+}
+
+void testController()
+{
+    Repository repository{};
+    Controller controller{repository};
+    controller.add(
+            "Learn Java 8",
+            "Marcus Biel",
+            Duration{572, 31},
+            0,
+            "https://www.youtube.com/watch?v=grEKMHGYyns"
+    );
+
+    controller.add(
+            "Java Programming Tutorial",
+            "thenewboston",
+            Duration{5, 45},
+            0,
+            "https://www.youtube.com/watch?v=tPFuVRbUTwA"
+    );
+
+    controller.add(
+            "Java",
+            "Derek Banas",
+            Duration{34, 29},
+            0,
+            "https://www.youtube.com/watch?v=WPvGqX-TXP0"
+    );
+    assert(controller.list().length() == 14);
+    controller.remove("Java Programming Tutorial");
+    controller.remove("Java");
+    assert(controller.list().length() == 12);
+    controller.update(
+            "Learn Java 8",
+            "Marcus",
+            Duration{0, 0},
+            12,
+            "https://www.youtube.com"
+    );
+    assert(controller.list().length() == 12);
+    assert(controller.list().get(11)->getTitle() == "Learn Java 8");
+    assert(controller.list().get(11)->getLikes() == 12);
+    cout << "Controller test passed\n";
 }
 
 int main()
 {
     testDynamicVector();
     testRepository();
+    testController();
     cout << "All tests passed\n";
 }
