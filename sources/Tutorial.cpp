@@ -7,7 +7,7 @@
 
 #include "../headers/Tutorial.h"
 
-Tutorial::Tutorial(string& title, string& presenter, Duration duration, int likes, string& link)
+Tutorial::Tutorial(const string& title, const string& presenter, Duration duration, int likes, const string& link)
         : title(title), presenter(presenter), duration(duration), likes(likes),
           link(link)
 {}
@@ -50,11 +50,11 @@ bool Tutorial::operator==(const Tutorial &tutorial)
 string Tutorial::toString()
 {
     std::ostringstream stringStream;
-    stringStream << title << " "
-                 << presenter << " "
+    stringStream << title << " | "
+                 << presenter << " | "
                  << duration.minutes << ":"
-                 << duration.seconds << " "
-                 << likes << " "
+                 << duration.seconds << " | "
+                 << likes << " | "
                  << link;
     return stringStream.str();
 }

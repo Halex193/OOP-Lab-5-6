@@ -24,6 +24,7 @@ public:
 
     const DynamicVector<Tutorial *> &list() const;
 
+    void populateRepository();
 };
 
 

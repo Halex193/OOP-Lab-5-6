@@ -17,9 +17,9 @@ public:
 
     void run();
 
-    string readString();
+    string readString(const string& message);
 
-    int readInt();
+    int readInt(const string& message);
 
     void cinClear();
 
