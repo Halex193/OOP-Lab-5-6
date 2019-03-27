@@ -47,9 +47,9 @@ public:
      */
     void remove(Tutorial *tutorial);
 
-    void addToWatchList(const Tutorial* tutorial);
+    bool addToWatchList(const Tutorial *tutorial);
 
-    void removeFromWatchList(const string &title);
+    Tutorial* removeFromWatchList(const string &title);
 
     const DynamicVector<Tutorial *> getWatchlist() const;
 

@@ -12,7 +12,7 @@ Tutorial::Tutorial(const string& title, const string& presenter, Duration durati
           link(link)
 {}
 
-Tutorial::Tutorial(const string& title): presenter(string()), duration(Duration{0, 0}), likes(0),
+Tutorial::Tutorial(const string& title): title(title), presenter(string()), duration(Duration{0, 0}), likes(0),
         link(string())
 {}
 

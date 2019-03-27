@@ -48,7 +48,7 @@ void ConsoleUI::run()
 
 void ConsoleUI::userUI()
 {
-    cout << "User interface. Available commands: all, delete, watchlist" << endl;
+    cout << "User interface. Available commands: tutorials, watchlist, remove" << endl;
 
     while (true)
     {
@@ -60,11 +60,12 @@ void ConsoleUI::userUI()
             return;
         try
         {
-            if (command == "all")
+            if (command == "tutorials")
             {
-                if (!controller.begin())
+                string presenter = readString("Choose the name of the presenter (blank for every tutorial): ");
+                if (!controller.begin(presenter))
                 {
-                    cout << "Watch list is empty!" << endl;
+                    cout << "Tutorial list is empty!" << endl;
                 }
                 else
                 {
@@ -73,23 +74,24 @@ void ConsoleUI::userUI()
                         const Tutorial *tutorial = controller.next();
                         cout << tutorial->toString() << endl << endl;
                         tutorial->show();
-                        string watch;
-                        cout << "Type 'watch' if you want to add the video to the watchlist: ";
-                        cin >> watch;
+                        string watch = readString("Type 'watch' if you want to add the video to the watchlist: ");
                         if (watch == "watch")
                         {
-                            controller.addToWatchList(tutorial);
-                            cout << "Tutorial was added to the watchlist" << endl;
+                            if(controller.addToWatchList(tutorial))
+                            {
+                                cout << "Tutorial was added to the watchlist" << endl;
+                            }
+                            else
+                            {
+                                cout << "Tutorial is already on the watchlist" << endl;
+                            }
                         }
                         else
                         {
                             cout << "Tutorial was not added to the watchlist" << endl;
                         }
-                        cout << endl;
-                        string next;
-                        cout << "Type 'next' to see the next video or 'exit' to return to the menu: ";
-                        cin >> next;
-                        if (next != "next")
+                        string exit = readString("Type 'exit' to return to the menu: ");
+                        if (exit == "exit")
                         {
                             break;
                         }
@@ -97,16 +99,21 @@ void ConsoleUI::userUI()
                     }
                 }
             }
-            else if (command == "delete")
+            else if (command == "remove")
             {
                 string title = readString("Choose the title of the video to remove from the watchlist: ");
-                Tutorial* tutorial = controller.removeFromWatchList(title);
-                string like;
-                cout << "If you liked the tutorial, type 'like': ";
-                cin >> like;
-                if (like == "like")
+                Tutorial *tutorial = controller.removeFromWatchList(title);
+                if (tutorial != nullptr)
                 {
-                    tutorial->like();
+                    string like = readString("If you liked the tutorial, type 'like': ");
+                    if (like == "like")
+                    {
+                        tutorial->like();//TODO Doesn't quite work with filtering? (ambiguous)
+                    }
+                }
+                else
+                {
+                    cout << "Tutorial does not exist in te watchlist!" << endl;
                 }
             }
             else if (command == "watchlist")

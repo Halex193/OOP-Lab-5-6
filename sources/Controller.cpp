@@ -125,7 +125,7 @@ void Controller::populateRepository()
 
 const Tutorial *Controller::next()
 {
-    const DynamicVector<Tutorial *> &tutorials = repository.getTutorials();
+    const DynamicVector<Tutorial *> &tutorials = activeTutorials;
     Tutorial *tutorial = tutorials.get(tutorialIndex);
     tutorialIndex++;
     if (tutorialIndex == tutorials.length())
@@ -135,14 +135,32 @@ const Tutorial *Controller::next()
     return tutorial;
 }
 
-void Controller::addToWatchList(const Tutorial *tutorial)
+bool Controller::addToWatchList(const Tutorial *tutorial)
 {
-    repository.addToWatchList(tutorial);
+    return repository.addToWatchList(tutorial);
 }
 
-bool Controller::begin()
+bool Controller::begin(const string &presenter)
 {
-    if (repository.getTutorials().length() == 0)
+    const DynamicVector<Tutorial*> &tutorials = repository.getTutorials();
+    if (presenter.empty())
+    {
+        activeTutorials = tutorials;
+    }
+    else
+    {
+        activeTutorials = DynamicVector<Tutorial*>{};
+        for (int i = 0; i < tutorials.length(); i++)
+        {
+            Tutorial *tutorial = tutorials.get(i);
+            if (tutorial->getPresenter() == presenter)
+            {
+                activeTutorials = activeTutorials + tutorial;
+            }
+        }
+    }
+
+    if (activeTutorials.length() == 0)
     {
         return false;
     }
@@ -152,11 +170,10 @@ bool Controller::begin()
 
 Tutorial *Controller::removeFromWatchList(const string &title)
 {
-    return nullptr;//TODO
+    return repository.removeFromWatchList(title);
 }
 
 DynamicVector<Tutorial *> Controller::watchList()
 {
-   //TODO
-    return DynamicVector<Tutorial*>{};
+    return repository.getWatchlist();
 }

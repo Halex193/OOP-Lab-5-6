@@ -13,8 +13,10 @@ class Controller
 {
 private:
     Repository &repository;
+    DynamicVector<Tutorial *> activeTutorials;
     int tutorialIndex;
 public:
+
     explicit Controller(Repository &repository);
 
     /**
@@ -42,14 +44,15 @@ public:
      */
     void populateRepository();
 
-    const Tutorial* next();
+    const Tutorial *next();
 
-    void addToWatchList(const Tutorial *tutorial);
+    bool addToWatchList(const Tutorial *tutorial);
 
-    bool begin();
+    bool begin(const string &presenter);
 
     Tutorial *removeFromWatchList(const string &title);
-    DynamicVector<Tutorial*> watchList();
+
+    DynamicVector<Tutorial *> watchList();
 };
 
 

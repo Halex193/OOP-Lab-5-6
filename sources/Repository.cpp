@@ -70,26 +70,44 @@ const DynamicVector<Tutorial*> Repository::getWatchlist() const
     DynamicVector<Tutorial*> tutorialList{};
     for (int i = 0; i < watchlist.length(); i++)
     {
-        int index = search(new Tutorial(watchlist.get(i)));
+        Tutorial *tutorial = new Tutorial(watchlist.get(i));
+        int index = search(tutorial);
+        delete tutorial;
         tutorialList = tutorialList + tutorials.get(index);
     }
     return tutorialList;
 }
 
-void Repository::addToWatchList(const Tutorial *tutorial)
+bool Repository::addToWatchList(const Tutorial *tutorial)
 {
+    for (int i = 0; i < watchlist.length(); i++)
+    {
+        if (watchlist.get(i) == tutorial->getTitle())
+        {
+            return false;
+        }
+    }
     watchlist = watchlist + tutorial->getTitle();
+    return true;
 }
 
-void Repository::removeFromWatchList(const string &title)
+Tutorial* Repository::removeFromWatchList(const string &title)
 {
     for (int i = 0; i < watchlist.length(); i++)
     {
         if (watchlist.get(i) == title)
         {
             watchlist.remove(i);
-            return;
+            Tutorial *searchedTutorial = new Tutorial(title);
+            int index = search(searchedTutorial);
+            delete searchedTutorial;
+            if (index != -1)
+            {
+                return tutorials.get(i);
+            }
+            return nullptr;
         }
     }
+    return nullptr;
 
 }
