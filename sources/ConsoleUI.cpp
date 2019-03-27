@@ -18,7 +18,132 @@ ConsoleUI::ConsoleUI(Controller &controller) : controller(controller)
 void ConsoleUI::run()
 {
     cout << "Master Java" << endl;
-    cout << "Available commands: add, remove, update, list" << endl;
+    bool modeValid = false;
+    while (!modeValid)
+    {
+        cout << "Choose mode: user or admin: ";
+        string mode;
+        cin >> mode;
+        if (mode == "exit")
+        {
+            return;
+        }
+        else if (mode == "user")
+        {
+            userUI();
+            modeValid = true;
+        }
+        else if (mode == "admin")
+        {
+            administratorUI();
+            modeValid = true;
+        }
+        else
+        {
+            cout << "Mode invalid!" << endl;
+        }
+    }
+
+}
+
+void ConsoleUI::userUI()
+{
+    cout << "User interface. Available commands: all, delete, watchlist" << endl;
+
+    while (true)
+    {
+        string command;
+        cout << "> ";
+        cin >> command;
+        cinClear();
+        if (command == "exit")
+            return;
+        try
+        {
+            if (command == "all")
+            {
+                if (!controller.begin())
+                {
+                    cout << "Watch list is empty!" << endl;
+                }
+                else
+                {
+                    while (true)
+                    {
+                        const Tutorial *tutorial = controller.next();
+                        cout << tutorial->toString() << endl << endl;
+                        tutorial->show();
+                        string watch;
+                        cout << "Type 'watch' if you want to add the video to the watchlist: ";
+                        cin >> watch;
+                        if (watch == "watch")
+                        {
+                            controller.addToWatchList(tutorial);
+                            cout << "Tutorial was added to the watchlist" << endl;
+                        }
+                        else
+                        {
+                            cout << "Tutorial was not added to the watchlist" << endl;
+                        }
+                        cout << endl;
+                        string next;
+                        cout << "Type 'next' to see the next video or 'exit' to return to the menu: ";
+                        cin >> next;
+                        if (next != "next")
+                        {
+                            break;
+                        }
+                        cout << endl;
+                    }
+                }
+            }
+            else if (command == "delete")
+            {
+                string title = readString("Choose the title of the video to remove from the watchlist: ");
+                Tutorial* tutorial = controller.removeFromWatchList(title);
+                string like;
+                cout << "If you liked the tutorial, type 'like': ";
+                cin >> like;
+                if (like == "like")
+                {
+                    tutorial->like();
+                }
+            }
+            else if (command == "watchlist")
+            {
+                const DynamicVector<Tutorial *> &tutorials = controller.watchList();
+                if (tutorials.length() != 0)
+                {
+                    cout << "Tutorials on watch list: " << endl;
+                    for (int i = 0; i < tutorials.length(); i++)
+                    {
+                        cout << tutorials.get(i)->toString() << endl;
+                    }
+                }
+                else
+                {
+                    cout << "No tutorials on the watch list" << endl;
+                }
+            }
+            else
+            {
+                cout << "Command invalid!" << endl;
+            }
+        }
+        catch (TutorialDoesNotExistException &exception)
+        {
+            cout << "The specified tutorial does not exist!" << endl;
+        }
+        catch (InvalidInput &exception)
+        {
+            cout << "Input invalid!" << endl;
+        }
+    }
+}
+
+void ConsoleUI::administratorUI()
+{
+    cout << "Admin interface. Available commands: add, remove, update, list" << endl;
 
     while (true)
     {
@@ -97,7 +222,7 @@ void ConsoleUI::run()
 }
 
 
-string ConsoleUI::readString(const string& message)
+string ConsoleUI::readString(const string &message)
 {
     cout << message;
     string readString;
@@ -108,7 +233,7 @@ string ConsoleUI::readString(const string& message)
     return readString;
 }
 
-int ConsoleUI::readInt(const string& message)
+int ConsoleUI::readInt(const string &message)
 {
     cout << message;
     int readInt;
@@ -126,3 +251,4 @@ void ConsoleUI::cinClear()
     cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
+

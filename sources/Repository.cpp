@@ -64,3 +64,32 @@ int Repository::search(Tutorial *tutorial) const
     }
     return -1;
 }
+
+const DynamicVector<Tutorial*> Repository::getWatchlist() const
+{
+    DynamicVector<Tutorial*> tutorialList{};
+    for (int i = 0; i < watchlist.length(); i++)
+    {
+        int index = search(new Tutorial(watchlist.get(i)));
+        tutorialList = tutorialList + tutorials.get(index);
+    }
+    return tutorialList;
+}
+
+void Repository::addToWatchList(const Tutorial *tutorial)
+{
+    watchlist = watchlist + tutorial->getTitle();
+}
+
+void Repository::removeFromWatchList(const string &title)
+{
+    for (int i = 0; i < watchlist.length(); i++)
+    {
+        if (watchlist.get(i) == title)
+        {
+            watchlist.remove(i);
+            return;
+        }
+    }
+
+}

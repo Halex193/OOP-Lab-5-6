@@ -12,6 +12,10 @@ Tutorial::Tutorial(const string& title, const string& presenter, Duration durati
           link(link)
 {}
 
+Tutorial::Tutorial(const string& title): presenter(string()), duration(Duration{0, 0}), likes(0),
+        link(string())
+{}
+
 void Tutorial::like()
 {
     likes++;
@@ -47,7 +51,7 @@ bool Tutorial::operator==(const Tutorial &tutorial)
     return title == tutorial.title;
 }
 
-string Tutorial::toString()
+string Tutorial::toString() const
 {
     std::ostringstream stringStream;
     stringStream << title << " | "
@@ -57,4 +61,9 @@ string Tutorial::toString()
                  << likes << " | "
                  << link;
     return stringStream.str();
+}
+
+void Tutorial::show() const
+{
+//    ShellExecuteA
 }

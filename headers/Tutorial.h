@@ -26,6 +26,8 @@ private:
 public:
     Tutorial(const string& title, const string& presenter, Duration duration, int likes, const string& link);
 
+    explicit Tutorial(const string& title);
+
     /**
      * Increases the number of likes by one
      */
@@ -43,7 +45,9 @@ public:
 
     bool operator ==(const Tutorial &tutorial);
 
-    string toString();
+    string toString() const;
+
+    void show() const;
 };
 
 

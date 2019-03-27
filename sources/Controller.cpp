@@ -8,7 +8,7 @@ using namespace std;
 
 #include "../headers/Controller.h"
 
-Controller::Controller(Repository &repository) : repository(repository)
+Controller::Controller(Repository &repository) : repository(repository), tutorialIndex(0)
 {
     populateRepository();
 }
@@ -31,7 +31,7 @@ Controller::update(const string &title, const string &presenter, Duration durati
 
 void Controller::remove(const string &title)
 {
-    repository.remove(new Tutorial(title, string(), Duration{0, 0}, 0, string()));
+    repository.remove(new Tutorial(title));
 }
 
 void Controller::populateRepository()
@@ -121,4 +121,42 @@ void Controller::populateRepository()
     ));
 
 
+}
+
+const Tutorial *Controller::next()
+{
+    const DynamicVector<Tutorial *> &tutorials = repository.getTutorials();
+    Tutorial *tutorial = tutorials.get(tutorialIndex);
+    tutorialIndex++;
+    if (tutorialIndex == tutorials.length())
+    {
+        tutorialIndex = 0;
+    }
+    return tutorial;
+}
+
+void Controller::addToWatchList(const Tutorial *tutorial)
+{
+    repository.addToWatchList(tutorial);
+}
+
+bool Controller::begin()
+{
+    if (repository.getTutorials().length() == 0)
+    {
+        return false;
+    }
+    tutorialIndex = 0;
+    return true;
+}
+
+Tutorial *Controller::removeFromWatchList(const string &title)
+{
+    return nullptr;//TODO
+}
+
+DynamicVector<Tutorial *> Controller::watchList()
+{
+   //TODO
+    return DynamicVector<Tutorial*>{};
 }

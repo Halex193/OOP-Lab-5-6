@@ -23,6 +23,9 @@ public:
 
     void cinClear();
 
+    void administratorUI();
+
+    void userUI();
 };
 
 

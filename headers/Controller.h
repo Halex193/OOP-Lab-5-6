@@ -13,6 +13,7 @@ class Controller
 {
 private:
     Repository &repository;
+    int tutorialIndex;
 public:
     explicit Controller(Repository &repository);
 
@@ -40,6 +41,15 @@ public:
      * Populates the repository with initial data
      */
     void populateRepository();
+
+    const Tutorial* next();
+
+    void addToWatchList(const Tutorial *tutorial);
+
+    bool begin();
+
+    Tutorial *removeFromWatchList(const string &title);
+    DynamicVector<Tutorial*> watchList();
 };
 
 

@@ -12,6 +12,7 @@ class Repository
 {
 private:
     DynamicVector<Tutorial *> tutorials;
+    DynamicVector<string> watchlist;
 
     /**
      * Searches for a stored Tutorial and returns its position in the repository
@@ -45,6 +46,12 @@ public:
      * @param tutorial
      */
     void remove(Tutorial *tutorial);
+
+    void addToWatchList(const Tutorial* tutorial);
+
+    void removeFromWatchList(const string &title);
+
+    const DynamicVector<Tutorial *> getWatchlist() const;
 
     ~Repository();
 };
