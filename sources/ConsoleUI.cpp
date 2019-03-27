@@ -27,7 +27,7 @@ void ConsoleUI::run()
         cin >> command;
         cinClear();
         if (command == "exit")
-            break;
+            return;
         try
         {
             if (command == "add")

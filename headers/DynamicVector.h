@@ -40,7 +40,7 @@ public:
 
     DynamicVector(const DynamicVector<TElem> &dynamicVector);
 
-    DynamicVector<TElem>& operator=(const DynamicVector<TElem> &dynamicVector);
+    DynamicVector<TElem> &operator=(const DynamicVector<TElem> &dynamicVector);
 
     /**
      * Adds an element at the end of the dynamic vector
@@ -66,6 +66,12 @@ public:
      * Gets the number of elements stored in the vector
      */
     int length() const;
+
+    template<class T>
+    friend DynamicVector<T> &operator+(DynamicVector<T> &dynamicVector, T element);
+
+    template<class T>
+    friend DynamicVector<T> &operator+(T element, DynamicVector<T> &dynamicVector);
 
     ~DynamicVector();
 };
@@ -178,7 +184,7 @@ DynamicVector<TElem>::DynamicVector(const DynamicVector<TElem> &dynamicVector)
 }
 
 template<class TElem>
-DynamicVector<TElem>& DynamicVector<TElem>::operator=(const DynamicVector<TElem> &dynamicVector)
+DynamicVector<TElem> &DynamicVector<TElem>::operator=(const DynamicVector<TElem> &dynamicVector)
 {
     if (this == &dynamicVector)
     {
@@ -195,6 +201,20 @@ DynamicVector<TElem>& DynamicVector<TElem>::operator=(const DynamicVector<TElem>
         elements[i] = dynamicVector.elements[i];
     }
     return *this;
+}
+
+template<class TElem>
+DynamicVector<TElem> &operator+(DynamicVector<TElem> &dynamicVector, TElem element)
+{
+    dynamicVector.add(element);
+    return dynamicVector;
+}
+
+template<class TElem>
+DynamicVector<TElem> &operator+(TElem element, DynamicVector<TElem> &dynamicVector)
+{
+    dynamicVector.add(element);
+    return dynamicVector;
 }
 
 

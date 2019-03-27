@@ -15,7 +15,7 @@ void Repository::add(Tutorial *tutorial)
     {
         throw DuplicateTutorial();
     }
-    tutorials.add(tutorial);
+    tutorials = tutorial + tutorials;
 }
 
 void Repository::update(Tutorial *tutorial)
