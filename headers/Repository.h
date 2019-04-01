@@ -47,10 +47,24 @@ public:
      */
     void remove(Tutorial *tutorial);
 
+    /**
+     * Adds a tutorial to the watchlist
+     * @return true if the Tutorial was added
+     *         false if the tutorial already exists in the watchlist
+     */
     bool addToWatchList(const Tutorial *tutorial);
 
+    /**
+     * Removes a tutorial from the watchlist
+     * @param title The title of the tutorial to be removed
+     * @return The tutorial that was removed, or nullptr if the tutorial did not exist
+     */
     Tutorial* removeFromWatchList(const string &title);
 
+    /**
+     * Gets the list of Tutorials currently in the watchlist
+     * @return A DynamicVector containing the tutorials
+     */
     const DynamicVector<Tutorial *> getWatchlist() const;
 
     ~Repository();

@@ -44,14 +44,35 @@ public:
      */
     void populateRepository();
 
-    const Tutorial *next();
-
-    bool addToWatchList(const Tutorial *tutorial);
-
+    /**
+     * Sets up the active tutorials filtering them by the presenter
+     * @param presenter The name of the presenter to be filtered by or empty string for all tutorials
+     * @return true if there are tutorials to be shown
+     *         false if the filtered list is empty
+     */
     bool begin(const string &presenter);
 
+    /**
+     * Retrieves the next Tutorial from the active tutorials list
+     * @return
+     */
+    const Tutorial *next();
+
+    /**
+     * Adds a tutorial to the watchlist
+     */
+    bool addToWatchList(const Tutorial *tutorial);
+
+    /**
+     * Remove a tutorial from the watchlist by its title
+     * @param title The title of the tutorial
+     * @return The tutorial that was removed or nullptr if the tutorial doesn't exit in the watchlist
+     */
     Tutorial *removeFromWatchList(const string &title);
 
+    /**
+     * Get the current watchlist
+     */
     DynamicVector<Tutorial *> watchList();
 };
 

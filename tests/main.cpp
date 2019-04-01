@@ -126,10 +126,48 @@ void testController()
     cout << "Controller test passed\n";
 }
 
+void testWatchList()
+{
+    Repository repository{};
+    Controller controller{repository};
+    controller.begin("");
+    const Tutorial *tutorial1 = controller.next();
+    assert(tutorial1->getTitle() == "Learn Java 8 - Full Tutorial for Beginners");
+    controller.addToWatchList(tutorial1);
+    assert(controller.next()->getTitle() == "Java Programming Tutorial - 17 - Constructors");
+    const Tutorial *tutorial2 = controller.next();
+    assert(tutorial2->getTitle() == "Java Programming");
+    controller.addToWatchList(tutorial2);
+    assert(controller.next()->getTitle() == "Java Tutorial");
+
+    controller.begin("Derek Banas");
+    assert(controller.next()->getTitle() == "Java Programming");
+    assert(controller.next()->getTitle() == "Java Tutorial");
+    assert(controller.next()->getTitle() == "Java Video Tutorial 14");
+    assert(controller.next()->getTitle() == "Java Programming");
+
+    DynamicVector<Tutorial*> watchlist = controller.watchList();
+    assert(watchlist.length() == 2);
+    assert(watchlist.get(0)->getTitle() == "Learn Java 8 - Full Tutorial for Beginners");
+    assert(watchlist.get(1)->getTitle() == "Java Programming");
+
+    controller.removeFromWatchList("Learn Java 8 - Full Tutorial for Beginners");
+    watchlist = controller.watchList();
+    assert(watchlist.get(0)->getTitle() == "Java Programming");
+    watchlist.get(0)->like();
+    assert(watchlist.get(0)->getLikes() == 1);
+    controller.removeFromWatchList("Java Programming");
+    watchlist = controller.watchList();
+    assert(watchlist.length() == 0);
+
+    cout << "Watchlist test passed\n";
+}
+
 int main()
 {
     testDynamicVector();
     testRepository();
     testController();
+    testWatchList();
     cout << "All tests passed\n";
 }

@@ -103,7 +103,7 @@ Tutorial* Repository::removeFromWatchList(const string &title)
             delete searchedTutorial;
             if (index != -1)
             {
-                return tutorials.get(i);
+                return tutorials.get(index);
             }
             return nullptr;
         }

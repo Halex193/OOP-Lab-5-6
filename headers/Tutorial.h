@@ -47,6 +47,9 @@ public:
 
     string toString() const;
 
+    /**
+     * Opens the link in the browser
+     */
     void show() const;
 };
 

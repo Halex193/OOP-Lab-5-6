@@ -108,7 +108,7 @@ void ConsoleUI::userUI()
                     string like = readString("If you liked the tutorial, type 'like': ");
                     if (like == "like")
                     {
-                        tutorial->like();//TODO Doesn't quite work with filtering? (ambiguous)
+                        tutorial->like();
                     }
                 }
                 else
