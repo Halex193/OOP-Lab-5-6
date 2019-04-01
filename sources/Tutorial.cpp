@@ -1,5 +1,6 @@
 #include <utility>
 #include <sstream>
+#include <windows.h>
 
 //
 // Created by Horatiu on 20-Mar-19.
@@ -65,5 +66,5 @@ string Tutorial::toString() const
 
 void Tutorial::show() const
 {
-//    ShellExecuteA
+    ShellExecuteA(NULL, NULL, "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", this->link.c_str(), NULL, SW_SHOWMAXIMIZED);
 }
