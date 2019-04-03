@@ -7,6 +7,7 @@
 #include <limits>
 #include "../headers/ConsoleUI.h"
 #include "../headers/Tutorial.h"
+#include "../headers/exceptions.h"
 
 using namespace std;
 
@@ -118,13 +119,13 @@ void ConsoleUI::userUI()
             }
             else if (command == "watchlist")
             {
-                const DynamicVector<Tutorial *> &tutorials = controller.watchList();
-                if (tutorials.length() != 0)
+                const vector<Tutorial *> &tutorials = controller.watchList();
+                if (!tutorials.empty())
                 {
                     cout << "Tutorials on watch list: " << endl;
-                    for (int i = 0; i < tutorials.length(); i++)
+                    for (auto tutorial : tutorials)
                     {
-                        cout << tutorials.get(i)->toString() << endl;
+                        cout << tutorial->toString() << endl;
                     }
                 }
                 else
@@ -194,13 +195,13 @@ void ConsoleUI::administratorUI()
             }
             else if (command == "list")
             {
-                const DynamicVector<Tutorial *> &tutorials = controller.list();
-                if (tutorials.length() != 0)
+                const vector<Tutorial *> &tutorials = controller.list();
+                if (!tutorials.empty())
                 {
                     cout << "Tutorials: " << endl;
-                    for (int i = 0; i < tutorials.length(); i++)
+                    for (auto tutorial : tutorials)
                     {
-                        cout << tutorials.get(i)->toString() << endl;
+                        cout << tutorial->toString() << endl;
                     }
                 }
                 else

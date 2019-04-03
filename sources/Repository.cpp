@@ -3,8 +3,9 @@
 //
 
 #include "../headers/Repository.h"
+#include "../headers/exceptions.h"
 
-const DynamicVector<Tutorial *> &Repository::getTutorials() const
+const vector<Tutorial *> &Repository::getTutorials() const
 {
     return tutorials;
 }
@@ -15,7 +16,7 @@ void Repository::add(Tutorial *tutorial)
     {
         throw DuplicateTutorial();
     }
-    tutorials = tutorial + tutorials;
+    tutorials.push_back(tutorial);
 }
 
 void Repository::update(Tutorial *tutorial)
@@ -26,8 +27,8 @@ void Repository::update(Tutorial *tutorial)
         delete tutorial;
         throw TutorialDoesNotExistException();
     }
-    delete tutorials.get(tutorialIndex);
-    tutorials.set(tutorial, tutorialIndex);
+    delete tutorials[tutorialIndex];
+    tutorials[tutorialIndex] = tutorial;
 
 }
 
@@ -40,23 +41,23 @@ void Repository::remove(Tutorial *tutorial)
         throw TutorialDoesNotExistException();
     }
     delete tutorial;
-    delete tutorials.get(tutorialIndex);
-    tutorials.remove(tutorialIndex);
+    delete tutorials[tutorialIndex];
+    tutorials.erase(tutorials.begin() + tutorialIndex);
 }
 
 Repository::~Repository()
 {
-    for (int i = 0; i < tutorials.length(); i++)
+    for (auto &tutorial : tutorials)
     {
-        delete tutorials.get(i);
+        delete tutorial;
     }
 }
 
 int Repository::search(Tutorial *tutorial) const
 {
-    for (int i = 0; i < tutorials.length(); i++)
+    for (int i = 0; i < tutorials.size(); i++)
     {
-        Tutorial *storedTutorial = tutorials.get(i);
+        Tutorial *storedTutorial = tutorials[i];
         if (*storedTutorial == *tutorial)
         {
             return i;
@@ -65,45 +66,45 @@ int Repository::search(Tutorial *tutorial) const
     return -1;
 }
 
-const DynamicVector<Tutorial*> Repository::getWatchlist() const
+const vector<Tutorial*> Repository::getWatchlist() const
 {
-    DynamicVector<Tutorial*> tutorialList{};
-    for (int i = 0; i < watchlist.length(); i++)
+    vector<Tutorial*> tutorialList{};
+    for (const auto &title : watchlist)
     {
-        Tutorial *tutorial = new Tutorial(watchlist.get(i));
+        Tutorial *tutorial = new Tutorial(title);
         int index = search(tutorial);
         delete tutorial;
-        tutorialList = tutorialList + tutorials.get(index);
+        tutorialList.push_back(tutorials[index]);
     }
     return tutorialList;
 }
 
 bool Repository::addToWatchList(const Tutorial *tutorial)
 {
-    for (int i = 0; i < watchlist.length(); i++)
+    for (const auto &title : watchlist)
     {
-        if (watchlist.get(i) == tutorial->getTitle())
+        if (title == tutorial->getTitle())
         {
             return false;
         }
     }
-    watchlist = watchlist + tutorial->getTitle();
+    watchlist.push_back(tutorial->getTitle());
     return true;
 }
 
 Tutorial* Repository::removeFromWatchList(const string &title)
 {
-    for (int i = 0; i < watchlist.length(); i++)
+    for (int i = 0; i < watchlist.size(); i++)
     {
-        if (watchlist.get(i) == title)
+        if (watchlist[i] == title)
         {
-            watchlist.remove(i);
+            watchlist.erase(watchlist.begin() + i);
             Tutorial *searchedTutorial = new Tutorial(title);
             int index = search(searchedTutorial);
             delete searchedTutorial;
             if (index != -1)
             {
-                return tutorials.get(index);
+                return tutorials[index];
             }
             return nullptr;
         }

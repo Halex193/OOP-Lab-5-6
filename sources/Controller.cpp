@@ -1,4 +1,5 @@
 #include <utility>
+#include <algorithm>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ void Controller::add(const string &title, const string &presenter, Duration dura
     repository.add(new Tutorial(title, presenter, duration, likes, link));
 }
 
-const DynamicVector<Tutorial *> &Controller::list() const
+const vector<Tutorial *> &Controller::list() const
 {
     return repository.getTutorials();
 }
@@ -98,7 +99,7 @@ void Controller::populateRepository()
             7,
             "https://www.youtube.com/watch?v=2dZiMBwX_5Q"
     ));
-     repository.add(new Tutorial(
+    repository.add(new Tutorial(
             "Programming Flappy Bird in Java!",
             "jaryt Bustard",
             Duration{62, 56},
@@ -125,10 +126,10 @@ void Controller::populateRepository()
 
 const Tutorial *Controller::next()
 {
-    const DynamicVector<Tutorial *> &tutorials = activeTutorials;
-    Tutorial *tutorial = tutorials.get(tutorialIndex);
+    const vector<Tutorial *> &tutorials = activeTutorials;
+    Tutorial *tutorial = tutorials[tutorialIndex];
     tutorialIndex++;
-    if (tutorialIndex == tutorials.length())
+    if (tutorialIndex == tutorials.size())
     {
         tutorialIndex = 0;
     }
@@ -142,25 +143,21 @@ bool Controller::addToWatchList(const Tutorial *tutorial)
 
 bool Controller::begin(const string &presenter)
 {
-    const DynamicVector<Tutorial*> &tutorials = repository.getTutorials();
+    const vector<Tutorial *> &tutorials = repository.getTutorials();
     if (presenter.empty())
     {
         activeTutorials = tutorials;
     }
     else
     {
-        activeTutorials = DynamicVector<Tutorial*>{};
-        for (int i = 0; i < tutorials.length(); i++)
-        {
-            Tutorial *tutorial = tutorials.get(i);
-            if (tutorial->getPresenter() == presenter)
-            {
-                activeTutorials = activeTutorials + tutorial;
-            }
-        }
+        activeTutorials = vector<Tutorial *>{};
+        copy_if(tutorials.begin(), tutorials.end(), back_inserter(activeTutorials),
+                [presenter](const Tutorial *tutorial)
+                { return tutorial->getPresenter() == presenter; }
+        );
     }
 
-    if (activeTutorials.length() == 0)
+    if (activeTutorials.empty())
     {
         return false;
     }
@@ -173,7 +170,7 @@ Tutorial *Controller::removeFromWatchList(const string &title)
     return repository.removeFromWatchList(title);
 }
 
-DynamicVector<Tutorial *> Controller::watchList()
+vector<Tutorial *> Controller::watchList()
 {
     return repository.getWatchlist();
 }

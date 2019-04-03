@@ -13,7 +13,7 @@ class Controller
 {
 private:
     Repository &repository;
-    DynamicVector<Tutorial *> activeTutorials;
+    vector<Tutorial *> activeTutorials;
     int tutorialIndex;
 public:
 
@@ -37,7 +37,7 @@ public:
     /**
      * Returns the list of all stored tutorials
      */
-    const DynamicVector<Tutorial *> &list() const;
+    const vector<Tutorial *> &list() const;
 
     /**
      * Populates the repository with initial data
@@ -73,7 +73,7 @@ public:
     /**
      * Get the current watchlist
      */
-    DynamicVector<Tutorial *> watchList();
+    vector<Tutorial *> watchList();
 };
 
 

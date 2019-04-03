@@ -5,14 +5,14 @@
 #ifndef LAB5_6_REPOSITORY_H
 #define LAB5_6_REPOSITORY_H
 
-#include "DynamicVector.h"
+#include <vector>
 #include "Tutorial.h"
 
 class Repository
 {
 private:
-    DynamicVector<Tutorial *> tutorials;
-    DynamicVector<string> watchlist;
+    vector<Tutorial *> tutorials;
+    vector<string> watchlist;
 
     /**
      * Searches for a stored Tutorial and returns its position in the repository
@@ -24,7 +24,7 @@ public:
      * Retrieves all the Tutorials stored in the repository
      * @return
      */
-    const DynamicVector<Tutorial *> &getTutorials() const;
+    const vector<Tutorial *> &getTutorials() const;
 
     /**
      * Adds a tutorial in the repository
@@ -63,9 +63,9 @@ public:
 
     /**
      * Gets the list of Tutorials currently in the watchlist
-     * @return A DynamicVector containing the tutorials
+     * @return A vector containing the tutorials
      */
-    const DynamicVector<Tutorial *> getWatchlist() const;
+    const vector<Tutorial *> getWatchlist() const;
 
     ~Repository();
 };
