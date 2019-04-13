@@ -17,11 +17,11 @@ public:
 
     void run();
 
-    string readString(const string& message);
+    static string readString(const string& message);
 
-    int readInt(const string& message);
+    static int readInt(const string& message);
 
-    void cinClear();
+    static void cinIgnore();
 
     void administratorUI();
 

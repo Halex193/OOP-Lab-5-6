@@ -39,10 +39,6 @@ public:
      */
     const vector<Tutorial *> &list() const;
 
-    /**
-     * Populates the repository with initial data
-     */
-    void populateRepository();
 
     /**
      * Sets up the active tutorials filtering them by the presenter
@@ -74,6 +70,10 @@ public:
      * Get the current watchlist
      */
     vector<Tutorial *> watchList();
+
+    void show(const Tutorial *tutorial);
+
+    void showWatchList();
 };
 
 

@@ -1,5 +1,11 @@
 #include <utility>
 #include <algorithm>
+#include "../headers/HTMLRepository.h"
+#include "../headers/CSVRepository.h"
+
+#if VS == true
+#include <windows.h>
+#endif
 
 using namespace std;
 
@@ -11,7 +17,7 @@ using namespace std;
 
 Controller::Controller(Repository &repository) : repository(repository), tutorialIndex(0)
 {
-    populateRepository();
+
 }
 
 void Controller::add(const string &title, const string &presenter, Duration duration, int likes, const string &link)
@@ -35,94 +41,6 @@ void Controller::remove(const string &title)
     repository.remove(new Tutorial(title));
 }
 
-void Controller::populateRepository()
-{
-    repository.add(new Tutorial(
-            "Learn Java 8 - Full Tutorial for Beginners",
-            "Marcus Biel",
-            Duration{572, 31},
-            0,
-            "https://www.youtube.com/watch?v=grEKMHGYyns"
-    ));
-
-    repository.add(new Tutorial(
-            "Java Programming Tutorial - 17 - Constructors",
-            "thenewboston",
-            Duration{5, 45},
-            0,
-            "https://www.youtube.com/watch?v=tPFuVRbUTwA"
-    ));
-
-    repository.add(new Tutorial(
-            "Java Programming",
-            "Derek Banas",
-            Duration{34, 29},
-            0,
-            "https://www.youtube.com/watch?v=WPvGqX-TXP0"
-    ));
-
-    repository.add(new Tutorial(
-            "Java Tutorial",
-            "Derek Banas",
-            Duration{138, 42},
-            0,
-            "https://www.youtube.com/watch?v=n-xAqcBCws4"
-    ));
-
-    repository.add(new Tutorial(
-            "Java Programming Tutorial - 27 - Introduction to Arrays",
-            "thenewboston",
-            Duration{7, 25},
-            0,
-            "https://www.youtube.com/watch?v=L06uGnF4IpY"
-    ));
-
-    repository.add(new Tutorial(
-            "Learn Java Programming with Beginners Tutorial",
-            "Guru99",
-            Duration{35, 5},
-            0,
-            "https://www.youtube.com/watch?v=uWYPVz_i7W4"
-    ));
-
-    repository.add(new Tutorial(
-            "Java Video Tutorial 14",
-            "Derek Banas",
-            Duration{13, 4},
-            0,
-            "https://www.youtube.com/watch?v=Lsdaztp3_lw"
-    ));
-    repository.add(new Tutorial(
-            "Java Programming Tutorial 1 - Introduction to Java",
-            "Caleb Curry",
-            Duration{7, 35},
-            7,
-            "https://www.youtube.com/watch?v=2dZiMBwX_5Q"
-    ));
-    repository.add(new Tutorial(
-            "Programming Flappy Bird in Java!",
-            "jaryt Bustard",
-            Duration{62, 56},
-            15,
-            "https://www.youtube.com/watch?v=I1qTZaUcFX0"
-    ));
-    repository.add(new Tutorial(
-            "Learn Java in 1 minute!!!",
-            "Udrea Horatiu",
-            Duration{1, 0},
-            1000,
-            "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    ));
-    repository.add(new Tutorial(
-            "Tutorial",
-            "No one",
-            Duration{1, 1},
-            1,
-            "https://www.youtube.com/watch?v=QH2-TGUlwu4"
-    ));
-
-
-}
 
 const Tutorial *Controller::next()
 {
@@ -173,4 +91,37 @@ Tutorial *Controller::removeFromWatchList(const string &title)
 vector<Tutorial *> Controller::watchList()
 {
     return repository.getWatchlist();
+}
+
+void Controller::show(const Tutorial *tutorial)
+{
+#if VS == true
+    ShellExecuteA(nullptr, nullptr, R"(C:\Program Files (x86)\Google\Chrome\Application\chrome.exe)", tutorial->getLink().c_str(),
+                  nullptr, SW_SHOWMAXIMIZED);
+#endif
+}
+
+void Controller::showWatchList()
+{
+    HTMLRepository *htmlRepository = dynamic_cast<HTMLRepository *>(&repository);
+    if (htmlRepository != nullptr)
+    {
+        //TODO fix this
+#if VS == true
+        ShellExecuteA(nullptr, nullptr, R"(C:\Program Files (x86)\Google\Chrome\Application\chrome.exe)",
+//                      ("file:///" + htmlRepository->watchListDirectory + htmlRepository->watchListPath).c_str(),
+                      R"("D:/University/Object-Oriented-Programming/Lab5-6/cmake-build-debug/data/watchList/watchList.html")",
+                      nullptr, SW_SHOWMAXIMIZED);
+#endif
+        return;
+    }
+    CSVRepository *csvRepository = dynamic_cast<CSVRepository *>(&repository);
+    if (csvRepository != nullptr)
+    {
+#if VS == true
+        string command = "notepad \"" + csvRepository->watchlistFile + "\"";
+        system(command.c_str());
+#endif
+        return;
+    }
 }

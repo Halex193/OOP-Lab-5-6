@@ -24,9 +24,9 @@ private:
     int likes;
     string link;
 public:
-    Tutorial(const string& title, const string& presenter, Duration duration, int likes, const string& link);
+    Tutorial(const string &title, const string &presenter, Duration duration, int likes, const string &link);
 
-    explicit Tutorial(const string& title);
+    explicit Tutorial(const string &title);
 
     /**
      * Increases the number of likes by one
@@ -43,14 +43,13 @@ public:
 
     const string &getLink() const;
 
-    bool operator ==(const Tutorial &tutorial);
+    bool operator==(const Tutorial &tutorial);
 
     string toString() const;
 
-    /**
-     * Opens the link in the browser
-     */
-    void show() const;
+    friend ostream &operator<<(ostream &out, const Tutorial &tutorial);
+
+    friend istream &operator>>(istream &in, Tutorial &tutorial);
 };
 
 

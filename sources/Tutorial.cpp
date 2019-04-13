@@ -1,6 +1,5 @@
-#include <utility>
 #include <sstream>
-#include <windows.h>
+#include "../headers/fileUtils.h"
 
 //
 // Created by Horatiu on 20-Mar-19.
@@ -8,13 +7,13 @@
 
 #include "../headers/Tutorial.h"
 
-Tutorial::Tutorial(const string& title, const string& presenter, Duration duration, int likes, const string& link)
+Tutorial::Tutorial(const string &title, const string &presenter, Duration duration, int likes, const string &link)
         : title(title), presenter(presenter), duration(duration), likes(likes),
           link(link)
 {}
 
-Tutorial::Tutorial(const string& title): title(title), presenter(string()), duration(Duration{0, 0}), likes(0),
-        link(string())
+Tutorial::Tutorial(const string &title) : title(title), presenter(string()), duration(Duration{0, 0}), likes(0),
+                                          link(string())
 {}
 
 void Tutorial::like()
@@ -64,7 +63,32 @@ string Tutorial::toString() const
     return stringStream.str();
 }
 
-void Tutorial::show() const
+ostream &operator<<(ostream &out, const Tutorial &tutorial)
 {
-    ShellExecuteA(NULL, NULL, "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", this->link.c_str(), NULL, SW_SHOWMAXIMIZED);
+    out << "\"" << tutorial.title << "\",\""
+        << tutorial.presenter << "\","
+        << tutorial.duration.minutes << ","
+        << tutorial.duration.seconds << ","
+        << tutorial.likes << ","
+        << tutorial.link;
+    return out;
+}
+
+istream &operator>>(istream &in, Tutorial &tutorial)
+{
+    string row;
+    getline(in, row);
+    if (row.empty())
+    {
+        in >> ws;
+        return in;
+    }
+    vector<string> fields = readCSVRow(row);
+    tutorial.title = fields[0];
+    tutorial.presenter = fields[1];
+    tutorial.duration.minutes = stoi(fields[2]);
+    tutorial.duration.seconds = stoi(fields[3]);
+    tutorial.likes = stoi(fields[4]);
+    tutorial.link = fields[5];
+    return in;
 }

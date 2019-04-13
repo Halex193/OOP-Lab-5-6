@@ -56,7 +56,7 @@ void ConsoleUI::userUI()
         string command;
         cout << "> ";
         cin >> command;
-        cinClear();
+        cinIgnore();
         if (command == "exit")
             return;
         try
@@ -74,7 +74,7 @@ void ConsoleUI::userUI()
                     {
                         const Tutorial *tutorial = controller.next();
                         cout << tutorial->toString() << endl << endl;
-                        tutorial->show();
+                        controller.show(tutorial);
                         string watch = readString("Type 'watch' if you want to add the video to the watchlist: ");
                         if (watch == "watch")
                         {
@@ -127,6 +127,7 @@ void ConsoleUI::userUI()
                     {
                         cout << tutorial->toString() << endl;
                     }
+                    controller.showWatchList();
                 }
                 else
                 {
@@ -158,7 +159,7 @@ void ConsoleUI::administratorUI()
         string command;
         cout << "> ";
         cin >> command;
-        cinClear();
+        cinIgnore();
         if (command == "exit")
             return;
         try
@@ -236,6 +237,7 @@ string ConsoleUI::readString(const string &message)
     string readString;
     if (!(getline(cin, readString)))
     {
+        cin.clear();
         throw InvalidInput();
     }
     return readString;
@@ -247,16 +249,16 @@ int ConsoleUI::readInt(const string &message)
     int readInt;
     if (!(cin >> readInt))
     {
-        cinClear();
+        cin.clear();
+        cinIgnore();
         throw InvalidInput();
     }
-    cinClear();
+    cinIgnore();
     return readInt;
 }
 
-void ConsoleUI::cinClear()
+void ConsoleUI::cinIgnore()
 {
-    cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 

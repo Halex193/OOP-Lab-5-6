@@ -7,6 +7,8 @@ file(GLOB headerFiles "headers/*.h")
 file(GLOB sourceFiles "sources/*.cpp")
 file(GLOB testFiles "tests/*")
 
+file(COPY data DESTINATION .)
+
 add_executable(Lab5_6
         main.cpp
         ${headerFiles}

@@ -13,18 +13,31 @@ class Repository
 private:
     vector<Tutorial *> tutorials;
     vector<string> watchlist;
+    const string tutorialsFile;
 
     /**
      * Searches for a stored Tutorial and returns its position in the repository
      */
     int search(Tutorial *tutorial) const;
 
+    Tutorial* search(const string &tutorialTitle) const;
+
+    void readTutorials();
+
+    void writeTutorials() const;
+
+    void destroyTutorials();
+
+    virtual void saveWatchList();
 public:
+
+    explicit Repository(const string &tutorialsFile);
+
     /**
      * Retrieves all the Tutorials stored in the repository
      * @return
      */
-    const vector<Tutorial *> &getTutorials() const;
+    const vector<Tutorial *> &getTutorials();
 
     /**
      * Adds a tutorial in the repository
