@@ -74,6 +74,8 @@ public:
     void show(const Tutorial *tutorial);
 
     void showWatchList();
+
+    string getExePath();
 };
 
 

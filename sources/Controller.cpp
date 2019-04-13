@@ -2,10 +2,7 @@
 #include <algorithm>
 #include "../headers/HTMLRepository.h"
 #include "../headers/CSVRepository.h"
-#include <iostream> //TODO remove this
-#if VS == true
 #include <windows.h>
-#endif
 
 using namespace std;
 
@@ -95,11 +92,17 @@ vector<Tutorial *> Controller::watchList()
 
 void Controller::show(const Tutorial *tutorial)
 {
-//    cout << "Ajunge";
-#if VS == true
-    ShellExecuteA(nullptr, nullptr, R"("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe")", tutorial->getLink().c_str(),
+    ShellExecuteA(nullptr, nullptr, R"("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe")",
+                  tutorial->getLink().c_str(),
                   nullptr, SW_SHOWMAXIMIZED);
-#endif
+}
+
+string Controller::getExePath()
+{
+    char buffer[MAX_PATH];
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    string::size_type pos = string(buffer).find_last_of("\\/");
+    return string(buffer).substr(0, pos);
 }
 
 void Controller::showWatchList()
@@ -107,13 +110,10 @@ void Controller::showWatchList()
     HTMLRepository *htmlRepository = dynamic_cast<HTMLRepository *>(&repository);
     if (htmlRepository != nullptr)
     {
-        //TODO fix this
-//        std::cout << htmlRepository->watchListDirectory + htmlRepository->watchListPath;
-#if VS == true
         ShellExecuteA(nullptr, nullptr, R"("C:\Program Files (x86)\Google\Chrome\Application\chrome.exe")",
-                      ("\"" + htmlRepository->watchListDirectory + htmlRepository->watchListPath + "\"").c_str(),
+                      ("\"" + getExePath() + "/" + htmlRepository->watchListDirectory + htmlRepository->watchListPath +
+                       "\"").c_str(),
                       nullptr, SW_SHOWMAXIMIZED);
-#endif
         return;
     }
     CSVRepository *csvRepository = dynamic_cast<CSVRepository *>(&repository);
