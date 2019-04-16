@@ -2,7 +2,12 @@
 #include <algorithm>
 #include "../headers/HTMLRepository.h"
 #include "../headers/CSVRepository.h"
+
+#define VS true
+
+#if VS == true
 #include <windows.h>
+#endif
 
 using namespace std;
 
@@ -92,11 +97,14 @@ vector<Tutorial *> Controller::watchList()
 
 void Controller::show(const Tutorial *tutorial)
 {
+#if VS == true
     ShellExecuteA(nullptr, nullptr, R"("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe")",
                   tutorial->getLink().c_str(),
                   nullptr, SW_SHOWMAXIMIZED);
+#endif
 }
 
+#if VS == true
 string Controller::getExePath()
 {
     char buffer[MAX_PATH];
@@ -104,16 +112,19 @@ string Controller::getExePath()
     string::size_type pos = string(buffer).find_last_of("\\/");
     return string(buffer).substr(0, pos);
 }
+#endif
 
 void Controller::showWatchList()
 {
     HTMLRepository *htmlRepository = dynamic_cast<HTMLRepository *>(&repository);
     if (htmlRepository != nullptr)
     {
+#if VS == true
         ShellExecuteA(nullptr, nullptr, R"("C:\Program Files (x86)\Google\Chrome\Application\chrome.exe")",
                       ("\"" + getExePath() + "/" + htmlRepository->watchListDirectory + htmlRepository->watchListPath +
                        "\"").c_str(),
                       nullptr, SW_SHOWMAXIMIZED);
+#endif
         return;
     }
     CSVRepository *csvRepository = dynamic_cast<CSVRepository *>(&repository);

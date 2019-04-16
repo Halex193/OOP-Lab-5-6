@@ -7,8 +7,6 @@
 #include <iostream>
 using namespace std;
 
-#define VS true
-
 int main()
 {
     const char *tutorialsFile = "data/tutorials.csv";
