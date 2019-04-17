@@ -12,7 +12,6 @@ struct Duration
 {
     int minutes;
     int seconds;
-
 };
 
 class Tutorial

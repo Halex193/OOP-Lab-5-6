@@ -137,6 +137,7 @@ Tutorial *Repository::removeFromWatchList(const string &title)
 void Repository::readTutorials()
 {
     ifstream inStream{tutorialsFile};
+    bool c = inStream.is_open();
     destroyTutorials();
     Tutorial *tutorial = new Tutorial{string{}};
     while (inStream >> *tutorial)
