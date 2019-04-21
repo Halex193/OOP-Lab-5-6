@@ -1,10 +1,16 @@
 #include "../headers/SQLRepository.h"
 
-void SQLRepository::saveWatchList()
+SQLRepository::SQLRepository(const string &tutorialsTable) : Repository(tutorialsTable)
 {
 
 }
 
-SQLRepository::SQLRepository(const string &tutorialsFile, const string &watchListTable) : Repository(tutorialsFile),
-                                                                                          watchListTable(watchListTable)
-{}
+void SQLRepository::readTutorials()
+{
+
+}
+
+void SQLRepository::writeTutorials() const
+{
+
+}

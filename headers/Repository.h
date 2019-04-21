@@ -22,9 +22,9 @@ private:
 
     Tutorial* search(const string &tutorialTitle) const;
 
-    void readTutorials();
+    virtual void readTutorials();
 
-    void writeTutorials() const;
+    virtual void writeTutorials() const;
 
     void destroyTutorials();
 

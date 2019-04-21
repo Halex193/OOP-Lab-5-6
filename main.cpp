@@ -12,7 +12,7 @@ int main()
     const char *tutorialsFile = "data/tutorials.csv";
     const char *watchListCSVFile = "data/watchList.csv";
     const char *watchListHTMLDirectory = "data/watchList";
-    const char *watchListSQLTable = "watchList";
+    const char *tutorialsTable = "tutorials";
 
     Repository *repository;
     string repositoryType = ConsoleUI::readString("Choose the repository type: ");
@@ -26,7 +26,7 @@ int main()
     }
     else if (repositoryType == "sql")
     {
-        repository = new SQLRepository{tutorialsFile, watchListSQLTable};
+        repository = new SQLRepository{tutorialsTable};
     }
     else
     {

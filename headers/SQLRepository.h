@@ -7,12 +7,12 @@
 class SQLRepository : public Repository
 {
 private:
-    string watchListTable;
+    void readTutorials() override;
 
-    void saveWatchList() override;
+    void writeTutorials() const override;
 
 public:
-    SQLRepository(const string &tutorialsFile, const string &watchListTable);
+    explicit SQLRepository(const string &tutorialsTable);
 };
 
 
