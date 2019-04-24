@@ -5,7 +5,7 @@
 
 class HTMLRepository : public Repository
 {
-private:
+public:
     string watchListDirectory;
     const string rowTemplatePath = "/templates/rowTemplate.html";
     const string tableTemplatePath = "/templates/tableTemplate.html";

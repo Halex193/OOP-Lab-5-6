@@ -5,7 +5,7 @@
 
 class CSVRepository : public Repository
 {
-private:
+public:
     string watchlistFile;
 
     void saveWatchList() override;

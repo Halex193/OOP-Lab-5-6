@@ -10,7 +10,7 @@
 
 class Repository
 {
-private:
+protected:
     vector<Tutorial *> tutorials;
     vector<string> watchlist;
     const string tutorialsFile;
