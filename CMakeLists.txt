@@ -20,7 +20,3 @@ add_executable(Lab5_6-Tests
         ${headerFiles}
         ${sourceFiles}
 		)
-#include_directories("D:\\Program Files\\MySQL\\MySQL Connector C++ 1.1.12\\include")
-#include_directories("D:\\Program Files\\MySQL\\boost_1_55_0")
-#link_directories("D:\\Program Files\\MySQL\\MySQL Connector C++ 1.1.12\\lib\\opt")
-#target_link_libraries(Lab5_6 "D:\\Program Files\\MySQL\\MySQL Connector C++ 1.1.12\\lib\\opt\\mysqlcppconn.lib")

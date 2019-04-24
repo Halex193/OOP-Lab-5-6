@@ -3,7 +3,6 @@
 #include "headers/Repository.h"
 #include "headers/CSVRepository.h"
 #include "headers/HTMLRepository.h"
-#include "headers/SQLRepository.h"
 #include <iostream>
 using namespace std;
 
@@ -23,10 +22,6 @@ int main()
     else if (repositoryType == "html")
     {
         repository = new HTMLRepository{tutorialsFile, watchListHTMLDirectory};
-    }
-    else if (repositoryType == "sql")
-    {
-        repository = new SQLRepository{tutorialsTable};
     }
     else
     {
