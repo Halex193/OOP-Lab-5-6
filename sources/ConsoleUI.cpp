@@ -11,12 +11,9 @@
 
 using namespace std;
 
-ConsoleUI::ConsoleUI(Controller &controller) : controller(controller)
-{
+ConsoleUI::ConsoleUI(Controller &controller) : UI(controller){}
 
-}
-
-void ConsoleUI::run()
+void ConsoleUI::run(int argc, char **argv)
 {
     cout << "Master Java" << endl;
     bool modeValid = false;

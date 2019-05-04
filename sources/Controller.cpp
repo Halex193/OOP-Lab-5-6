@@ -3,7 +3,7 @@
 #include "../headers/HTMLRepository.h"
 #include "../headers/CSVRepository.h"
 
-#define VS false
+#define VS true
 
 #if VS == true
 #include <windows.h>

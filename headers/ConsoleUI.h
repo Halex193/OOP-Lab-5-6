@@ -7,19 +7,19 @@
 
 
 #include "Controller.h"
+#include "UI.h"
 
-class ConsoleUI
+class ConsoleUI : public UI
 {
-private:
-    Controller &controller;
 public:
+
     explicit ConsoleUI(Controller &controller);
 
-    void run();
+    void run(int argc, char **argv) override;
 
-    static string readString(const string& message);
+    static string readString(const string &message);
 
-    static int readInt(const string& message);
+    static int readInt(const string &message);
 
     static void cinIgnore();
 
