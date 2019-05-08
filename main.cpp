@@ -4,7 +4,7 @@
 #include "headers/CSVRepository.h"
 #include "headers/HTMLRepository.h"
 #include <iostream>
-#include "../headers/GUI.h"
+#include "headers/GUI.h"
 
 using namespace std;
 
