@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(Lab5_6)
+project(Lab11-12)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -16,14 +16,11 @@ file(COPY data DESTINATION .)
 
 find_package(Qt5Widgets CONFIG REQUIRED)
 
-add_executable(Lab5_6 WIN32
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}_autogen/include/include)
+
+add_executable(${CMAKE_PROJECT_NAME} WIN32
         main.cpp
         ${headerFiles}
         ${sourceFiles}
         )
-add_executable(Lab5_6-Tests WIN32
-        ${testFiles}
-        ${headerFiles}
-        ${sourceFiles}
-		)
-target_link_libraries(Lab5_6 Qt5::Widgets)
+target_link_libraries(${CMAKE_PROJECT_NAME} Qt5::Widgets)

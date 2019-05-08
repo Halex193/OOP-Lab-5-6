@@ -6,6 +6,8 @@
 #define VS true
 
 #if VS == true
+#include <QDir>
+#include <qdir.h>
 #include <windows.h>
 #endif
 
@@ -107,10 +109,7 @@ void Controller::show(const Tutorial *tutorial)
 #if VS == true
 string Controller::getExePath()
 {
-    char buffer[MAX_PATH];
-    GetModuleFileName(NULL, buffer, MAX_PATH);
-    string::size_type pos = string(buffer).find_last_of("\\/");
-    return string(buffer).substr(0, pos);
+    return QDir::currentPath().toUtf8().constData();
 }
 #endif
 

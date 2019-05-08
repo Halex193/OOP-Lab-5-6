@@ -13,7 +13,7 @@ class Controller
 {
 private:
     Repository &repository;
-    vector<Tutorial *> activeTutorials;
+    vector<Tutorial *> activeTutorials{};
     int tutorialIndex;
 public:
 

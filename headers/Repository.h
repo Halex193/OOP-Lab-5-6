@@ -12,7 +12,7 @@ class Repository
 {
 protected:
     vector<Tutorial *> tutorials;
-    vector<string> watchlist;
+    vector<string> watchlist{};
     const string tutorialsFile;
 
     /**
@@ -80,7 +80,7 @@ public:
      */
     const vector<Tutorial *> getWatchlist() const;
 
-    ~Repository();
+    virtual ~Repository();
 };
 
 
