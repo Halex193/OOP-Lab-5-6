@@ -26,6 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
+    sources/adminmenu.cpp \
     sources/CSVRepository.cpp \
     sources/ConsoleUI.cpp \
     sources/Controller.cpp \
@@ -33,9 +34,9 @@ SOURCES += \
     sources/HTMLRepository.cpp \
     sources/Repository.cpp \
     sources/Tutorial.cpp \
-    sources/adminmenu.cpp \
     sources/fileUtils.cpp \
-    sources/mainwindow.cpp
+    sources/mainwindow.cpp \
+    sources/usermenu.cpp
 
 HEADERS += \
     headers/CSVRepository.h \
@@ -49,13 +50,15 @@ HEADERS += \
     headers/Repository.h \
     headers/Tutorial.h \
     headers/UI.h \
-    headers/adminmenu.h \
     headers/algorithmUtils.h \
     headers/exceptions.h \
     headers/fileUtils.h \
-    headers/mainwindow.h
+    headers/mainwindow.h \
+    headers/adminmenu.h \
+    headers/usermenu.h
 
-FORMS +=
+FORMS += \
+    sources/usermenu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

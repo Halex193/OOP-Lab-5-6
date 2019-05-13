@@ -2,15 +2,34 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
+#include <headers/Controller.h>
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+private:
+    QPushButton *adminMenu;
+    QPushButton *userMenu;
+    QPushButton *graphButton;
+    Controller &controller;
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(Controller &controller, QWidget *parent = nullptr);
+
     ~MainWindow() override;
-private slots:
+
+private:
+    void initWindow();
+
+    void connectAll() const;
+
+private:
+
     void adminMenuButtonClicked();
+
+    void userMenuButtonClicked();
+
+    void graphButtonClicked();
+
 };
 
 #endif // MAINWINDOW_H
