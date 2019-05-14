@@ -7,6 +7,7 @@
 
 
 #include <vector>
+#include <map>
 #include "Repository.h"
 
 class Controller
@@ -76,6 +77,8 @@ public:
     void showWatchList();
 
     string getExePath();
+
+    std::map<string, int> getGraphData();
 };
 
 

@@ -11,24 +11,23 @@ class AdminMenu : public QMainWindow
 {
 Q_OBJECT
 private:
-    QPushButton *addButton;
-    QPushButton *deleteButton;
-    QPushButton *updateButton;
-    QPushButton *filterButton;
+    QPushButton *addButton{};
+    QPushButton *deleteButton{};
+    QPushButton *updateButton{};
 
-    QLineEdit *titleTextBox;
-    QLineEdit *presenterTextBox;
-    QLineEdit *minutesTextBox;
-    QLineEdit *secondsTextBox;
-    QLineEdit *likesTextBox;
-    QLineEdit *linkTextBox;
-    QListWidget *listWidget;
+    QLineEdit *titleTextBox{};
+    QLineEdit *presenterTextBox{};
+    QLineEdit *minutesTextBox{};
+    QLineEdit *secondsTextBox{};
+    QLineEdit *likesTextBox{};
+    QLineEdit *linkTextBox{};
+    QListWidget *listWidget{};
 
     Controller &controller;
 public:
     explicit AdminMenu(Controller &controller, QWidget *parent = nullptr);
 
-    ~AdminMenu();
+    ~AdminMenu() override;
 
 private:
 
@@ -47,6 +46,8 @@ private:
     void updateList();
 
     void listWidgetSelectionChanged();
+
+    void closeEvent (QCloseEvent *event) override;
 };
 
 #endif // MAINMENU_H

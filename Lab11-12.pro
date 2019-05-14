@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = Lab11-12
 TEMPLATE = app
@@ -35,7 +35,9 @@ SOURCES += \
     sources/Repository.cpp \
     sources/Tutorial.cpp \
     sources/fileUtils.cpp \
+    sources/graphmenu.cpp \
     sources/mainwindow.cpp \
+    sources/qcustomplot.cpp \
     sources/usermenu.cpp
 
 HEADERS += \
@@ -53,11 +55,14 @@ HEADERS += \
     headers/algorithmUtils.h \
     headers/exceptions.h \
     headers/fileUtils.h \
+    headers/graphmenu.h \
     headers/mainwindow.h \
     headers/adminmenu.h \
+    headers/qcustomplot.h \
     headers/usermenu.h
 
 FORMS += \
+    sources/graphmenu.ui \
     sources/usermenu.ui
 
 # Default rules for deployment.

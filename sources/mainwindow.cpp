@@ -2,6 +2,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <headers/adminmenu.h>
 #include <headers/usermenu.h>
+#include <headers/graphmenu.h>
 
 MainWindow::MainWindow(Controller &controller, QWidget *parent) :
         QMainWindow(parent),
@@ -40,21 +41,20 @@ void MainWindow::initWindow()
 
 void MainWindow::adminMenuButtonClicked()
 {
-    this->hide();
-    auto *mainMenu = new AdminMenu{controller};
-    mainMenu->show();
+    this->close();
+    (new AdminMenu{controller})->show();
 }
 
 void MainWindow::graphButtonClicked()
 {
-
+    this->close();
+    (new GraphMenu{controller})->show();
 }
 
 void MainWindow::userMenuButtonClicked()
 {
-    this->hide();
-    auto *userMenu = new UserMenu{controller};
-    userMenu->show();
+    this->close();
+    (new UserMenu{controller})->show();
 }
 
 MainWindow::~MainWindow() = default;

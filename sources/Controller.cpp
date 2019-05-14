@@ -136,3 +136,20 @@ void Controller::showWatchList()
         return;
     }
 }
+
+std::map<string, int> Controller::getGraphData()
+{
+    map<string, int> data{};
+    for (auto &tutorial : list())
+    {
+        if (data.find(tutorial->getPresenter()) != data.end())
+        {
+            data[tutorial->getPresenter()]++;
+        }
+        else
+        {
+            data[tutorial->getPresenter()] = 1;
+        }
+    }
+    return data;
+}

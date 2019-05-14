@@ -13,11 +13,11 @@ class UserMenu : public QMainWindow
 
 public:
     explicit UserMenu(Controller &controller, QWidget *parent = nullptr);
-    ~UserMenu();
+    ~UserMenu() override;
 
 private:
     Ui::UserMenu *ui;
-    const Tutorial *currentTutorial;
+    const Tutorial *currentTutorial{};
 
     Controller &controller;
 
@@ -33,6 +33,8 @@ private:
     void deleteButtonClicked();
 
     void updateWatchList() const;
+
+    void closeEvent (QCloseEvent *event) override;
 };
 
 #endif // USERMENU_H

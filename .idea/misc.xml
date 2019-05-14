@@ -3,6 +3,7 @@
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
   <component name="CidrRootsConfiguration">
     <sourceRoots>
+      <file path="$PROJECT_DIR$/cmake-build-debug/Lab11-12_autogen/include" />
       <file path="$PROJECT_DIR$/headers" />
       <file path="$PROJECT_DIR$/sources" />
       <file path="$PROJECT_DIR$/tests" />

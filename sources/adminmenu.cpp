@@ -7,6 +7,9 @@
 #include <QtWidgets/QGridLayout>
 #include <headers/adminmenu.h>
 #include <QtCore/QDebug>
+#include <QCloseEvent>
+#include <headers/mainwindow.h>
+
 
 #include "headers/adminmenu.h"
 
@@ -75,9 +78,7 @@ void AdminMenu::connectAll()
     QObject::connect(listWidget, &QListWidget::itemSelectionChanged, this, &AdminMenu::listWidgetSelectionChanged);
 }
 
-AdminMenu::~AdminMenu()
-{
-}
+AdminMenu::~AdminMenu() = default;
 
 void AdminMenu::addButtonClicked()
 {
@@ -96,8 +97,8 @@ void AdminMenu::deleteButtonClicked()
 void AdminMenu::updateButtonClicked()
 {
     controller.update(titleTextBox->text().toStdString(), presenterTextBox->text().toStdString(),
-                   Duration{minutesTextBox->text().toInt(), secondsTextBox->text().toInt()},
-                   likesTextBox->text().toInt(), linkTextBox->text().toStdString());
+                      Duration{minutesTextBox->text().toInt(), secondsTextBox->text().toInt()},
+                      likesTextBox->text().toInt(), linkTextBox->text().toStdString());
     updateList();
 }
 
@@ -112,4 +113,10 @@ void AdminMenu::listWidgetSelectionChanged()
     likesTextBox->setText(QString::number(tutorial->getLikes()));
     linkTextBox->setText(QString{tutorial->getLink().c_str()});
 
+}
+
+void AdminMenu::closeEvent(QCloseEvent *event)
+{
+    this->close();
+    (new MainWindow{controller})->show();
 }

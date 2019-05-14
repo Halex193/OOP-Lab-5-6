@@ -5,11 +5,14 @@
 
 #include "headers/usermenu.h"
 #include "ui_usermenu.h"
+#include <QMessageBox>
+#include <headers/mainwindow.h>
 
 UserMenu::UserMenu(Controller &controller, QWidget *parent) :
         controller{controller},
         QMainWindow(parent),
-        ui(new Ui::UserMenu)
+        ui(new Ui::UserMenu),
+        currentTutorial(nullptr)
 {
     ui->setupUi(this);
     connectAll();
@@ -67,7 +70,21 @@ void UserMenu::deleteButtonClicked()
     if (ui->watchlistWidget->currentItem() != nullptr)
     {
         Tutorial *tutorial = controller.removeFromWatchList(ui->watchlistWidget->currentItem()->text().toStdString());
-        //TODO ask if the user liked the video
         updateWatchList();
+        QMessageBox::StandardButton result = QMessageBox::question(this, "Video removed",
+                                                                   tr("Did you like the video?\n"),
+                                                                   QMessageBox::No |
+                                                                   QMessageBox::Yes,
+                                                                   QMessageBox::No);
+        if (result != QMessageBox::Yes)
+        {
+            tutorial->like();
+        }
     }
+}
+
+void UserMenu::closeEvent (QCloseEvent *event)
+{
+    this->close();
+    (new MainWindow{controller})->show();
 }
